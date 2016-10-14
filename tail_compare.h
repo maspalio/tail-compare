@@ -1,1 +1,1 @@
-bool tail_compare ( char* lhs, char* rhs );
+bool tail_lt ( char* lhs, char* rhs );

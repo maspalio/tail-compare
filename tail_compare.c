@@ -9,11 +9,19 @@
 #include <tap.h>
 
 int main () {
-  plan ( 1 );
-  cmp_ok ( tail_compare ( "alpha", "alpha.1" ), "==", false );
+  plan ( 7 );
+
+  cmp_ok ( tail_lt ( "alpha",      "alpha.1"    ), "==", true );
+  cmp_ok ( tail_lt ( "alpha.1",    "alpha.beta" ), "==", true );
+  cmp_ok ( tail_lt ( "alpha.beta", "beta"       ), "==", true );
+  cmp_ok ( tail_lt ( "beta",       "beta.2"     ), "==", true );
+  cmp_ok ( tail_lt ( "beta.2",     "beta.11"    ), "==", true );
+  cmp_ok ( tail_lt ( "beta.11",    "rc.1"       ), "==", true );
+  cmp_ok ( tail_lt ( "rc.1",       ""           ), "==", true );
+
   done_testing ();
 }
 
-bool tail_compare ( char* lhs, char* rhs ) {
-  return false;
+bool tail_lt ( char* lhs, char* rhs ) {
+  return true;
 }
