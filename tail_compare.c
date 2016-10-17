@@ -10,15 +10,11 @@
 // 1.0.0-alpha < 1.0.0-alpha.1 < 1.0.0-alpha.beta < 1.0.0-beta < 1.0.0-beta.2 < 1.0.0-beta.11 < 1.0.0-rc.1 < 1.0.0.
 
 bool tail_lt ( char *lhs, char *rhs ) {
-  char xlhs[256], xrhs[256];
-  strcpy ( xlhs, lhs );
-  strcpy ( xrhs, rhs );
-
   char *dot = ".";
   char *l_last, *r_last;
 
-  char *l_token = strtok_r ( xlhs, dot, &l_last );
-  char *r_token = strtok_r ( xrhs, dot, &r_last );
+  char *l_token = strtok_r ( lhs, dot, &l_last );
+  char *r_token = strtok_r ( rhs, dot, &r_last );
 
   if ( l_token && !r_token ) {
     return true;
