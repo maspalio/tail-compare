@@ -2,16 +2,26 @@
 
 #include <tap.h>
 
-int main () {
-  plan ( 7 );
+int plan = 7;
+char *cases[] = {
+  "alpha",      "alpha.1"
+, "alpha.1",    "alpha.beta"
+, "alpha.beta", "beta"
+, "beta",       "beta.2"
+, "beta.2",     "beta.11"
+, "beta.11",    "rc.1"
+, "rc.1",       ""
+};
 
-  cmp_ok ( tail_lt ( "alpha",      "alpha.1"    ), "==", true, "alpha < alpha.1"      );
-  cmp_ok ( tail_lt ( "alpha.1",    "alpha.beta" ), "==", true, "alpha.1 < alpha.beta" );
-  cmp_ok ( tail_lt ( "alpha.beta", "beta"       ), "==", true, "alpha.beta < beta"    );
-  cmp_ok ( tail_lt ( "beta",       "beta.2"     ), "==", true, "beta < beta.2"        );
-  cmp_ok ( tail_lt ( "beta.2",     "beta.11"    ), "==", true, "beta.2 < beta.11"     );
-  cmp_ok ( tail_lt ( "beta.11",    "rc.1"       ), "==", true, "beta.11 < rc.1"       );
-  cmp_ok ( tail_lt ( "rc.1",       ""           ), "==", true, "rc.1 < {empty}"       );
+int main () {
+  plan ( plan );
+
+  for ( int i = 0 ; i < plan ; i++ ) {
+    char *description;
+    sprintf ( description, "%s < %s", cases[2*i], cases[2*i+1] );
+
+    cmp_ok ( tail_lt ( cases[2*i], cases[2*i+1] ), "==", true, description );
+  }
 
   done_testing ();
 }
