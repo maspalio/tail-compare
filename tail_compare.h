@@ -6,3 +6,4 @@
 
 int  tail_cmp ( char* lhs, char* rhs );
 bool tail_lt  ( char* lhs, char* rhs );
+bool tail_gt  ( char* lhs, char* rhs );

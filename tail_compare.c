@@ -25,7 +25,11 @@ int tail_cmp ( char *lhs, char *rhs ) {
       int r_numeric = isdigit ( r_token[0] );
 
       if ( l_numeric && r_numeric ) {
-        return atoi ( l_token ) < atoi ( r_token ) ? -1 : +1;
+        int l_int = atoi ( l_token );
+        int r_int = atoi ( r_token );
+
+        if ( l_int < r_int ) return -1;
+        if ( l_int > r_int ) return +1;
       }
       else if ( l_numeric ) {
         return -1;
@@ -55,4 +59,7 @@ int tail_cmp ( char *lhs, char *rhs ) {
 
 bool tail_lt ( char *lhs, char *rhs ) {
   return tail_cmp ( lhs, rhs ) < 0;
+}
+bool tail_gt ( char *lhs, char *rhs ) {
+  return tail_cmp ( lhs, rhs ) > 0;
 }
