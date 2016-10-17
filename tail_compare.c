@@ -62,6 +62,9 @@ int tail_cmp ( char *lhs, char *rhs ) {
 bool tail_lt ( char *lhs, char *rhs ) {
   return tail_cmp ( lhs, rhs ) == TAIL_COMPARE_LT;
 }
+bool tail_eq ( char *lhs, char *rhs ) {
+  return tail_cmp ( lhs, rhs ) == TAIL_COMPARE_EQ;
+}
 bool tail_gt ( char *lhs, char *rhs ) {
   return tail_cmp ( lhs, rhs ) == TAIL_COMPARE_GT;
 }

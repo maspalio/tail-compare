@@ -16,13 +16,13 @@ char *cases[] = {
 int count = sizeof ( cases ) / sizeof ( cases[0] ) / 2;
 
 int main () {
-  plan ( count * 2 );
+  plan ( count * 2 + 2 );
 
   for ( int i = 0 ; i < count ; i++ ) {
     char lhs[MAXLEN], rhs[MAXLEN], description[MAXLEN];
     strcpy ( lhs, cases[2*i  ] );
     strcpy ( rhs, cases[2*i+1] );
-    sprintf ( description, "%s < %s", lhs, rhs );
+    sprintf ( description, "'%s' < '%s'", lhs, rhs );
 
     cmp_ok ( tail_lt ( lhs, rhs ), "==", true, description );
   }
@@ -31,10 +31,13 @@ int main () {
     char lhs[MAXLEN], rhs[MAXLEN], description[MAXLEN];
     strcpy ( lhs, cases[2*i  ] );
     strcpy ( rhs, cases[2*i+1] );
-    sprintf ( description, "%s > %s", rhs, lhs );
+    sprintf ( description, "'%s' > '%s'", rhs, lhs );
 
     cmp_ok ( tail_gt ( rhs, lhs ), "==", true, description );
   }
+
+  cmp_ok ( tail_eq ( "",    ""    ), "==", true, "'' == ''" );
+  cmp_ok ( tail_eq ( "foo", "foo" ), "==", true, "'foo' == 'foo'" );
 
   done_testing ();
 }
