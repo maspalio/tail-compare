@@ -4,7 +4,6 @@
 
 #define MAXLEN 64
 
-int plan = 7;
 char *cases[] = {
   "alpha",      "alpha.1"
 , "alpha.1",    "alpha.beta"
@@ -14,11 +13,12 @@ char *cases[] = {
 , "beta.11",    "rc.1"
 , "rc.1",       ""
 };
+int count = sizeof ( cases ) / sizeof ( cases[0] ) / 2;
 
 int main () {
-  plan ( plan );
+  plan ( count );
 
-  for ( int i = 0 ; i < plan ; i++ ) {
+  for ( int i = 0 ; i < count ; i++ ) {
     char lhs[MAXLEN], rhs[MAXLEN];
 
     strcpy ( lhs, cases[2*i  ] );
