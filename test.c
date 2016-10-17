@@ -2,6 +2,8 @@
 
 #include <tap.h>
 
+#define MAXLEN 64
+
 int plan = 7;
 char *cases[] = {
   "alpha",      "alpha.1"
@@ -17,7 +19,7 @@ int main () {
   plan ( plan );
 
   for ( int i = 0 ; i < plan ; i++ ) {
-    char lhs[64], rhs[64];
+    char lhs[MAXLEN], rhs[MAXLEN];
 
     strcpy ( lhs, cases[2*i  ] );
     strcpy ( rhs, cases[2*i+1] );
