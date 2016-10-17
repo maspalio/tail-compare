@@ -1,5 +1,6 @@
 #include "tail_compare.h"
 
+// http://semver.org/#spec-item-11:
 // Precedence for two pre-release versions with the same major, minor, and patch version MUST be determined
 // by comparing each dot separated identifier from left to right until a difference is found as follows:
 // identifiers consisting of only digits are compared numerically and identifiers with letters or hyphens
