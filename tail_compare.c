@@ -3,6 +3,7 @@
 #define LT -1
 #define EQ  0
 #define GT +1
+#define KO  9
 
 // http://semver.org/#spec-item-11:
 // Precedence for two pre-release versions with the same major, minor, and patch version MUST be determined
@@ -46,7 +47,7 @@ int tail_cmp ( char *lhs, char *rhs ) {
       else {
         int cmp = strcmp ( l_token, r_token );
 
-        if ( cmp ) return cmp;
+        if ( cmp ) return cmp > 0 ? GT : LT;
       }
     }
     else if ( l_token ) {
@@ -60,12 +61,12 @@ int tail_cmp ( char *lhs, char *rhs ) {
     r_token = strtok_r ( NULL, dot, &r_last );
   }
 
-  return 0;
+  return KO;
 }
 
 bool tail_lt ( char *lhs, char *rhs ) {
-  return tail_cmp ( lhs, rhs ) < 0;
+  return tail_cmp ( lhs, rhs ) == LT;
 }
 bool tail_gt ( char *lhs, char *rhs ) {
-  return tail_cmp ( lhs, rhs ) > 0;
+  return tail_cmp ( lhs, rhs ) == GT;
 }
