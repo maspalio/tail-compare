@@ -23,12 +23,21 @@ int main () {
     strcpy ( lhs, cases[2*i  ] );
     strcpy ( rhs, cases[2*i+1] );
 
-    char dlt[MAXLEN], dgt[MAXLEN];
-    sprintf ( dlt, "%s < %s", lhs, rhs );
-    sprintf ( dgt, "%s > %s", rhs, lhs );
+    char description[MAXLEN];
+    sprintf ( description, "%s < %s", lhs, rhs );
 
-    cmp_ok ( tail_lt ( lhs, rhs ), "==", true, dlt );
-    cmp_ok ( tail_gt ( rhs, lhs ), "==", true, dgt );
+    cmp_ok ( tail_lt ( lhs, rhs ), "==", true, description );
+  }
+
+  for ( int i = 0 ; i < count ; i++ ) {
+    char lhs[MAXLEN], rhs[MAXLEN];
+    strcpy ( lhs, cases[2*i  ] );
+    strcpy ( rhs, cases[2*i+1] );
+
+    char description[MAXLEN];
+    sprintf ( description, "%s > %s", rhs, lhs );
+
+    cmp_ok ( tail_gt ( rhs, lhs ), "==", true, description );
   }
 
   done_testing ();
