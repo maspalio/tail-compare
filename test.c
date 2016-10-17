@@ -20,24 +20,26 @@ int main () {
 
   for ( int i = 0 ; i < count ; i++ ) {
     char lhs[MAXLEN], rhs[MAXLEN], description[MAXLEN];
+
     strcpy ( lhs, cases[2*i  ] );
     strcpy ( rhs, cases[2*i+1] );
     sprintf ( description, "'%s' < '%s'", lhs, rhs );
 
-    cmp_ok ( tail_lt ( lhs, rhs ), "==", true, description );
+    ok ( tail_lt ( lhs, rhs ), description );
   }
 
   for ( int i = 0 ; i < count ; i++ ) {
     char lhs[MAXLEN], rhs[MAXLEN], description[MAXLEN];
+
     strcpy ( lhs, cases[2*i  ] );
     strcpy ( rhs, cases[2*i+1] );
     sprintf ( description, "'%s' > '%s'", rhs, lhs );
 
-    cmp_ok ( tail_gt ( rhs, lhs ), "==", true, description );
+    ok ( tail_gt ( rhs, lhs ), description );
   }
 
-  cmp_ok ( tail_eq ( "",    ""    ), "==", true, "'' == ''" );
-  cmp_ok ( tail_eq ( "foo", "foo" ), "==", true, "'foo' == 'foo'" );
+  ok ( tail_eq ( "",    ""    ), "'' == ''" );
+  ok ( tail_eq ( "foo", "foo" ), "'foo' == 'foo'" );
 
   done_testing ();
 }
