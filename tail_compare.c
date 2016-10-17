@@ -1,27 +1,19 @@
-// clang -o tail_compare tail_compare.c -I../libtap/ ../libtap/libtap.a -O0 -Wall
-
-#include <ctype.h>
-#include <stdbool.h>
-#include <string.h>
-
 #include "tail_compare.h"
 
-#include <tap.h>
+bool tail_lt ( char *lhs, char *rhs ) {
+  printf ( "lhs: %s\n", lhs );
+  // printf ( "rhs: %s\n", rhs );
 
-int main () {
-  plan ( 7 );
+  char xlhs[256], xrhs[256];
+  strcpy ( xlhs, lhs );
+  strcpy ( xrhs, rhs );
 
-  cmp_ok ( tail_lt ( "alpha",      "alpha.1"    ), "==", true );
-  cmp_ok ( tail_lt ( "alpha.1",    "alpha.beta" ), "==", true );
-  cmp_ok ( tail_lt ( "alpha.beta", "beta"       ), "==", true );
-  cmp_ok ( tail_lt ( "beta",       "beta.2"     ), "==", true );
-  cmp_ok ( tail_lt ( "beta.2",     "beta.11"    ), "==", true );
-  cmp_ok ( tail_lt ( "beta.11",    "rc.1"       ), "==", true );
-  cmp_ok ( tail_lt ( "rc.1",       ""           ), "==", true );
+  char *dot = ".";
+  char *l_token, *l_last, *r_last;
 
-  done_testing ();
-}
+  for ( l_token = strtok_r ( xlhs, dot, &l_last ) ; l_token ; l_token = strtok_r ( NULL, dot, &l_last ) ) {
+    printf ( "l_token: %s\n", l_token );
+  }
 
-bool tail_lt ( char* lhs, char* rhs ) {
   return true;
 }
