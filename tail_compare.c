@@ -53,5 +53,5 @@ bool tail_lt ( char *lhs, char *rhs ) {
     r_token = strtok_r ( NULL, dot, &r_last );
   }
 
-  return false;
+  return -1;
 }
