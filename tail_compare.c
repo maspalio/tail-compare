@@ -29,8 +29,6 @@ bool tail_lt ( char *lhs, char *rhs ) {
       int l_numeric = isdigit ( l_token[0] );
       int r_numeric = isdigit ( r_token[0] );
 
-      // printf ( "l_token: %s (N: %d) VS r_token: %s (N: %d)\n", l_token, l_numeric, r_token, r_numeric );
-
       if ( l_numeric && r_numeric ) {
         return atoi ( l_token ) < atoi ( r_token );
       }
@@ -49,11 +47,9 @@ bool tail_lt ( char *lhs, char *rhs ) {
       }
     }
     else if ( l_token ) {
-      // printf ( "l_token: %s VS NULL\n", l_token );
       return false;
     }
     else {
-      // printf ( "NULL VS r_token: %s\n", r_token );
       return true;
     }
 
