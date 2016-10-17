@@ -4,4 +4,5 @@
 #include <stdlib.h>
 #include <string.h>
 
-bool tail_lt ( char* lhs, char* rhs );
+int  tail_cmp ( char* lhs, char* rhs );
+bool tail_lt  ( char* lhs, char* rhs );

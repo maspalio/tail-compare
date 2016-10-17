@@ -9,16 +9,15 @@
 // if all of the preceding identifiers are equal. Example:
 // 1.0.0-alpha < 1.0.0-alpha.1 < 1.0.0-alpha.beta < 1.0.0-beta < 1.0.0-beta.2 < 1.0.0-beta.11 < 1.0.0-rc.1 < 1.0.0.
 
-bool tail_lt ( char *lhs, char *rhs ) {
+int tail_cmp ( char *lhs, char *rhs ) {
   char *dot = ".";
   char *l_last, *r_last;
 
   char *l_token = strtok_r ( lhs, dot, &l_last );
   char *r_token = strtok_r ( rhs, dot, &r_last );
 
-  if ( l_token && !r_token ) {
-    return true;
-  }
+  if (  l_token && !r_token ) return -1;
+  if ( !l_token &&  r_token ) return +1;
 
   while ( l_token || r_token ) {
     if ( l_token && r_token ) {
@@ -26,32 +25,34 @@ bool tail_lt ( char *lhs, char *rhs ) {
       int r_numeric = isdigit ( r_token[0] );
 
       if ( l_numeric && r_numeric ) {
-        return atoi ( l_token ) < atoi ( r_token );
+        return atoi ( l_token ) < atoi ( r_token ) ? -1 : +1;
       }
       else if ( l_numeric ) {
-        return true;
+        return -1;
       }
       else if ( r_numeric ) {
-        return false;
+        return +1;
       }
       else {
         int cmp = strcmp ( l_token, r_token );
 
-        if ( cmp ) {
-          return cmp;
-        }
+        if ( cmp ) return cmp;
       }
     }
     else if ( l_token ) {
-      return false;
+      return +1;
     }
-    else {
-      return true;
+    else if ( r_token ) {
+      return -1;
     }
 
     l_token = strtok_r ( NULL, dot, &l_last );
     r_token = strtok_r ( NULL, dot, &r_last );
   }
 
-  return -1;
+  return 0;
+}
+
+bool tail_lt ( char *lhs, char *rhs ) {
+  return tail_cmp ( lhs, rhs ) < 0;
 }
