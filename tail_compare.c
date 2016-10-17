@@ -1,5 +1,9 @@
 #include "tail_compare.h"
 
+#define LT -1
+#define EQ  0
+#define GT +1
+
 // http://semver.org/#spec-item-11:
 // Precedence for two pre-release versions with the same major, minor, and patch version MUST be determined
 // by comparing each dot separated identifier from left to right until a difference is found as follows:
@@ -10,7 +14,7 @@
 // 1.0.0-alpha < 1.0.0-alpha.1 < 1.0.0-alpha.beta < 1.0.0-beta < 1.0.0-beta.2 < 1.0.0-beta.11 < 1.0.0-rc.1 < 1.0.0.
 
 int tail_cmp ( char *lhs, char *rhs ) {
-  if ( !strcmp ( lhs, rhs ) ) return 0;
+  if ( !strcmp ( lhs, rhs ) ) return EQ;
 
   char *dot = ".";
   char *l_last, *r_last;
@@ -18,8 +22,8 @@ int tail_cmp ( char *lhs, char *rhs ) {
   char *l_token = strtok_r ( lhs, dot, &l_last );
   char *r_token = strtok_r ( rhs, dot, &r_last );
 
-  if (  l_token && !r_token ) return -1;
-  if ( !l_token &&  r_token ) return +1;
+  if (  l_token && !r_token ) return LT;
+  if ( !l_token &&  r_token ) return GT;
 
   while ( l_token || r_token ) {
     if ( l_token && r_token ) {
@@ -30,14 +34,14 @@ int tail_cmp ( char *lhs, char *rhs ) {
         int l_int = atoi ( l_token );
         int r_int = atoi ( r_token );
 
-        if ( l_int < r_int ) return -1;
-        if ( l_int > r_int ) return +1;
+        if ( l_int < r_int ) return LT;
+        if ( l_int > r_int ) return GT;
       }
       else if ( l_numeric ) {
-        return -1;
+        return LT;
       }
       else if ( r_numeric ) {
-        return +1;
+        return GT;
       }
       else {
         int cmp = strcmp ( l_token, r_token );
@@ -46,10 +50,10 @@ int tail_cmp ( char *lhs, char *rhs ) {
       }
     }
     else if ( l_token ) {
-      return +1;
+      return GT;
     }
     else if ( r_token ) {
-      return -1;
+      return LT;
     }
 
     l_token = strtok_r ( NULL, dot, &l_last );
